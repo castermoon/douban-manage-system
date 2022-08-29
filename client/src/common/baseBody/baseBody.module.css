@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+}
+
+.right-body{
+    flex:1;
+}
+
+.content{
+    padding: 10px;
+}
+

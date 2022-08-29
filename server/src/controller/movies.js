@@ -2,9 +2,9 @@ const { SuccessModel, ErrorModel } = require("../model/resModel")
 const { _getMovieList,_deleteMovies,_createMovie } = require("../service/movies")
 
 const getMovieList = async () => {
-	const result = await _getMovieList()
+	const moviesList = await _getMovieList()
 	return new SuccessModel({
-		result
+		moviesList
 	})
 }
 

@@ -1,0 +1,12 @@
+.header{
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #cacaca;
+    padding: 3px 10px 0 10px;
+}
+
+.users{
+    position: absolute;
+    right:10px;
+    top: -2px;
+}
