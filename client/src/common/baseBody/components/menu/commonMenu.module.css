@@ -1,5 +1,5 @@
 .menu-wrapper{
-    width: 120px;
+    flex: 0 0 120px;
     background: #000;
     height: auto;
     min-height: 100vh;

@@ -2,7 +2,7 @@ import type { MenuProps } from 'antd';
 import { Button, Menu } from 'antd';
 import React, { useState } from 'react';
 import styles from "./commonMenu.module.css"
-import { useNavigate,useParams,useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 
 
@@ -36,7 +36,7 @@ const CommonMenu: React.FC = () => {
           theme="dark"
           items={items}
           style={{position:"fixed",top:0,left:0,width:"120px"}}
-          onSelect={({ selectedKeys }:{selectedKeys:string[]}) => routerChange(selectedKeys)}
+          onSelect={({ selectedKeys }:{selectedKeys:string[]}) => routerChange  (selectedKeys)}
           selectedKeys={[location.pathname.substring(1)]}
       >
       </Menu>

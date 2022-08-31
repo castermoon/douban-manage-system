@@ -7,12 +7,20 @@ import {Home} from "./pages/home/Home";
 import {LongComments} from "./pages/longComments/LongComments";
 
 const App: FC = () => (
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/" element={<Home/>} />
+    //     <Route path="/movies" element={<Movie />} />
+    //     <Route path="/celebrity" element={<Celebrity/>}/>
+    //     <Route path="/longComments" element={<LongComments/>}/>
+    //   </Routes>
+    // </BrowserRouter>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/movies" element={<Movie />} />
-        <Route path="/celebrity" element={<Celebrity/>}/>
-        <Route path="/longComments" element={<LongComments/>}/>
+        <Route index element={<Home/>} />
+        <Route path="movies" element={<Movie />} />
+        <Route path="celebrity" element={<Celebrity/>}/>
+        <Route path="longComments" element={<LongComments/>}/>
       </Routes>
     </BrowserRouter>
 );

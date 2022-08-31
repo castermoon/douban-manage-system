@@ -4,13 +4,14 @@ const { getMovieList,deleteMovies,createMovie,updateMovie } = require('../../con
 router.prefix('/api')
 
 router.get('/getMovies',async (ctx,next) => {
-	ctx.body = await getMovieList()
+	const { name } = ctx.request.query
+	ctx.body = await getMovieList({name})
 })
 
 
 router.post('/deleteMovies',async (ctx,next) => {
-	const { deleteMoviesIdStr } = ctx.request.body
-	ctx.body = await deleteMovies(deleteMoviesIdStr)
+	const { deleteIdsArr } = ctx.request.body
+	ctx.body = await deleteMovies(deleteIdsArr)
 })
 
 router.post('/createMovie',async (ctx,next) => {
@@ -18,9 +19,9 @@ router.post('/createMovie',async (ctx,next) => {
 	ctx.body = await createMovie({ name,cover,type,web,country,language,timeLen,anotherName,indbLink,score,brief,time })
 })
 
-// router.post('/updateMovie',async (ctx,next) => {
-// 	const { movieId,content,score,status,labelList,onlyMe,isShare } = ctx.request.body
-// 	ctx.body = await updateMovie()
-// })
+router.post('/updateMovie',async (ctx,next) => {
+	const { id,name,cover,type,web,country,language,timeLen,anotherName,indbLink,score,brief,time } = ctx.request.body
+	ctx.body = await updateMovie({ id,name,cover,type,web,country,language,timeLen,anotherName,indbLink,score,brief,time })
+})
 
 module.exports = router

@@ -1,12 +1,17 @@
 const { exec } = require("../db/mysql");
 
-const _getMovieList = async () => {
-	let sql = `select * from movies;`
+const _getMovieList = async ({name}) => {
+	let sql
+	if(name){
+		sql = `SELECT * FROM movies WHERE \`name\` LIKE '%${name}%';`
+	}else {
+		sql = `select * from movies;`
+	}
 	return await exec(sql)
 }
 
-const _deleteMovies = async (_deleteMoviesIdStr) => {
-	let sql = `DELETE FROM movies WHERE id in(${_deleteMoviesIdStr});`
+const _deleteMovies = async (deleteIdsStr) => {
+	let sql = `DELETE FROM movies WHERE id in(${deleteIdsStr});`
 	return await exec(sql)
 }
 
@@ -18,8 +23,11 @@ const _createMovie = async ({name,cover,type,web,country,language,timeLen,anothe
 	}
 }
 
-const _updateMovie = async () => {
-	let sql = `select * from movies;`
+const _updateMovie = async ( { id,name,cover,type,web,country,language,timeLen,anotherName,indbLink,score,brief,time }) => {
+	let sql = `UPDATE movies SET \`name\`='${name}',cover='${cover}',\`type\`='${type}',web='${web}',
+  country='${country}',\`language\`='${language}',timeLen=${timeLen},anotherName='${anotherName}',score=${score},
+  brief='${brief}',\`time\`='${time}',indbLink='${indbLink}'
+  WHERE id=${id};`
 	return await exec(sql)
 }
 

@@ -2,8 +2,10 @@
     display: flex;
 }
 
-.right-body{
+.right-body {
     flex:1;
+    overflow: hidden;
+
 }
 
 .content{
