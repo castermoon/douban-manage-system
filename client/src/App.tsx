@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css"
 import { Movie } from "./pages/movies/Movie";
 import { Celebrity } from "./pages/celebrity/Celebrity";
-import {Home} from "./pages/home/Home";
-import {LongComments} from "./pages/longComments/LongComments";
+import { Home } from "./pages/home/Home";
+import { LongComments } from "./pages/longComments/LongComments";
+import { Comments } from "./pages/comments/comments";
+import {Users} from "./pages/users/Users";
 
 const App: FC = () => (
     // <BrowserRouter>
@@ -21,6 +23,8 @@ const App: FC = () => (
         <Route path="movies" element={<Movie />} />
         <Route path="celebrity" element={<Celebrity/>}/>
         <Route path="longComments" element={<LongComments/>}/>
+        <Route path="comments" element={<Comments/>}/>
+        <Route path="users" element={<Users/>}/>
       </Routes>
     </BrowserRouter>
 );

@@ -1,13 +1,13 @@
 import { Form, Input, InputNumber, Popconfirm, Table, Typography,Button,Tooltip } from 'antd';
 import React, {useEffect, useState} from "react";
 import {
-  fetchMoviesData,
-  movieDatatype,
-  setMoviesTableSelectedRowKeys,
+  fetchCelebrityData,
+  celebrityItemType,
+  setCelebrityTableSelectedRowKeys,
   setIsModalVisible,
-  setMoviesRecord,
+  setCelebrityRecord,
   setModelType
-} from "../../slice";
+} from "../../celebritySlice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
 import {useSearchParams} from "react-router-dom";
 
@@ -16,30 +16,29 @@ import {useSearchParams} from "react-router-dom";
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
   const [searchParams,setSearchParams]= useSearchParams()
-  const tableData = useAppSelector(state => state.movies.moviesList)
-  const fetchStatus = useAppSelector(state => state.movies.status)
-  const selectedMoviesRowKeys = useAppSelector(state => state.movies.selectedMoviesRowKeys)
-
+  const tableData = useAppSelector(state => state.celebrity.celebrityList)
+  const fetchStatus = useAppSelector(state => state.celebrity.status)
+  const selectedCelebrityRowKeys = useAppSelector(state => state.celebrity.selectedCelebrityRowKeys)
   const url = searchParams.toString()
   useEffect(() => {
     if(fetchStatus === "init"){
-      dispatch(fetchMoviesData(url))
+      dispatch(fetchCelebrityData(url))
     }
   },[fetchStatus,url])
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
-    dispatch(setMoviesTableSelectedRowKeys(newSelectedRowKeys))
+    dispatch(setCelebrityTableSelectedRowKeys(newSelectedRowKeys))
   };
 
   const rowSelection = {
-    selectedMoviesRowKeys,
+    selectedCelebrityRowKeys,
     onChange: onSelectChange,
   };
 
-  const handleEditRecord = (moviesRecord:movieDatatype) => {
+  const handleEditRecord = (celebrityRecord:celebrityItemType) => {
     dispatch(setIsModalVisible(true))
     dispatch(setModelType("edit"))
-    dispatch(setMoviesRecord(moviesRecord))
+    dispatch(setCelebrityRecord(celebrityRecord))
   }
 
   const columns = [
@@ -48,7 +47,7 @@ const ATable: React.FC = () => {
       align: "center",
       dataIndex: 'operation',
       width: 50,
-      render: (_: any, record: movieDatatype) => {
+      render: (_: any, record: celebrityItemType) => {
         return  (
           <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
         )
@@ -75,22 +74,50 @@ const ATable: React.FC = () => {
       ),
     },
     {
-      title: '封面',
-      dataIndex: 'cover',
-      width:  "100px",
-      align: 'center',
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (cover:string) => (
-        <Tooltip placement="topLeft" title={cover}>
-          {cover}
-        </Tooltip>
-      ),
+      title: '头像',
+      dataIndex: 'icon',
+      width:  "200px",
+      align: 'center'
     },
     {
-      title: '类型',
-      dataIndex: 'type',
+      title: '性别',
+      dataIndex: 'sex',
+      width: '40px',
+      align: "center"
+    },
+    {
+      title: '职业',
+      dataIndex: 'vocation',
+      width: '100px',
+      align: "center"
+    },
+    {
+      title: '星座',
+      dataIndex: 'constellation',
+      width: '100px',
+      align: "center",
+    },
+    {
+      title: '出生日期',
+      dataIndex: 'birth',
+      width: '80px',
+      align: "center"
+    },
+    {
+      title: '别名',
+      dataIndex: 'anotherName',
+      width: '80px',
+      align: "center"
+    },
+    {
+      title: '其他中文名',
+      dataIndex: 'anotherChineseName',
+      width: '60px',
+      align: "center"
+    },
+    {
+      title: 'indbLink',
+      dataIndex: 'indbLink',
       width: '100px',
       align: "center"
     },
@@ -99,64 +126,20 @@ const ATable: React.FC = () => {
       dataIndex: 'web',
       width: '100px',
       align: "center",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (web:string) => (
-        <Tooltip placement="topLeft" title={web}>
-          {web}
-        </Tooltip>
-      ),
-    },
-    {
-      title: '国家',
-      dataIndex: 'country',
-      width: '80px',
-      align: "center"
-    },
-    {
-      title: '语言',
-      dataIndex: 'language',
-      width: '100px',
-      align: "center"
-    },
-    {
-      title: '上映日期',
-      dataIndex: 'time',
-      width: '80px',
-      align: "center"
-    },
-    {
-      title: '时长',
-      dataIndex: 'timeLen',
-      width: '60px',
-      align: "center"
-    },
-    {
-      title: '别名',
-      dataIndex: 'anotherName',
-      width: '100px',
-      align: "center"
     },
     {
       title: '简介',
-      dataIndex: 'brief',
-      width: '100px',
+      dataIndex: 'desc',
+      width: '200px',
       align: "center",
       ellipsis: {
         showTitle: false,
       },
-      render: (brief:string) => (
-        <Tooltip placement="topLeft" title={brief}>
-          {brief}
+      render: (name:string) => (
+        <Tooltip placement="topLeft" title={name}>
+          {name}
         </Tooltip>
       ),
-    },
-    {
-      title: '评分',
-      dataIndex: 'score',
-      width: '60px',
-      align: "center",
     }
   ];
 

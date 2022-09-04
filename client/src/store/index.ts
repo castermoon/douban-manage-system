@@ -11,7 +11,10 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import moviesReducer from '../pages/movies/slice'
-
+import celebrityReducer from "../pages/celebrity/celebritySlice"
+import longCommentsSlice from "../pages/longComments/longCommentsSlice";
+import commentsSlice from "../pages/comments/commentsSlice";
+import usersSlice from "../pages/users/slice"
 const persistConfig = {  // **
     key: 'root',// 储存的标识名
     storage, // 储存方式
@@ -20,6 +23,10 @@ const persistConfig = {  // **
 
 const rootReducer = combineReducers({
     movies: moviesReducer,
+    celebrity:celebrityReducer,
+    longComments:longCommentsSlice,
+    comments:commentsSlice,
+    users:usersSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer) // **

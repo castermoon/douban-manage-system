@@ -1,18 +1,26 @@
 const router = require("koa-router")()
-const { getComments,deleteComments } = require('../../controller/comments')
+const { getComments,deleteComments,createComment,updateComment } = require('../../controller/comments')
 
 router.prefix('/api')
 
 router.get('/getComments',async (ctx,next) => {
-	ctx.body = await getComments()
+	const { content } = ctx.request.query
+	ctx.body = await getComments({content})
 })
 
 router.post('/deleteComments',async (ctx,next) => {
-	const { deleteIdStr } = ctx.request.body
-	ctx.body = await deleteComments(deleteIdStr)
+	const { deleteIdsArr } = ctx.request.body
+	ctx.body = await deleteComments({deleteIdsArr})
 })
 
+router.post('/createComment',async (ctx,next) => {
+	const { content,date,score,user_id,movie_id,status,labelList,onlyMe,isShare } = ctx.request.body
+	ctx.body = await createComment({ content,date,score,user_id,movie_id,status,labelList,onlyMe,isShare } )
+})
 
-
+router.post('/updateComment',async (ctx,next) => {
+	const { id,content,date,score,user_id,movie_id,status,labelList,onlyMe,isShare } = ctx.request.body
+	ctx.body = await updateComment({ id,content,date,score,user_id,movie_id,status,labelList,onlyMe,isShare })
+})
 
 module.exports = router

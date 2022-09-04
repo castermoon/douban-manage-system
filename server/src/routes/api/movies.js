@@ -8,7 +8,6 @@ router.get('/getMovies',async (ctx,next) => {
 	ctx.body = await getMovieList({name})
 })
 
-
 router.post('/deleteMovies',async (ctx,next) => {
 	const { deleteIdsArr } = ctx.request.body
 	ctx.body = await deleteMovies(deleteIdsArr)

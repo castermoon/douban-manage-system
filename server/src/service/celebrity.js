@@ -1,7 +1,12 @@
 const { exec } = require("../db/mysql");
 
-const _getCelebrity = async () => {
-	let sql = `select * from celebritys;`
+const _getCelebrity = async ({name}) => {
+	let sql
+	if(name){
+		sql = `SELECT * FROM celebritys WHERE \`name\` LIKE '%${name}%';`
+	}else {
+		sql = `select * from celebritys;`
+	}
 	return await exec(sql)
 }
 
@@ -18,10 +23,18 @@ const _createCelebrity = async ({ name,icon,sex,constellation,birth,vocation,ano
 	}
 }
 
+const _updateCelebrity = async ( { id,name,icon,sex,constellation,birth,vocation,anotherName,anotherChineseName,indbLink,web,desc }) => {
+	let sql = `UPDATE celebritys SET \`name\`='${name}',icon='${icon}',sex=${sex},constellation='${constellation}',birth='${birth}',
+	vocation='${vocation}',anotherName='${anotherName}',indbLink='${indbLink}',web='${web}',
+	\`desc\`='${desc}',anotherChineseName='${anotherChineseName}'
+	WHERE id=${id};`
+	return await exec(sql)
+}
 
 
 module.exports = {
 	_getCelebrity,
 	_deleteCelebrity,
 	_createCelebrity,
+	_updateCelebrity
 }

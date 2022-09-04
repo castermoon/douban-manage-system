@@ -1,15 +1,15 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
-const { _getUsers,_deleteUsers,_createUsers,_checkUserName,_login } = require("../service/users")
+const { _getUsers,_deleteUsers,_createUsers,_checkUserName,_login,_updateUser } = require("../service/users")
 const { userNameRepeat,passwordError } = require("../model/ErrorInfo")
 
-const getUsers = async () => {
-	const result = await _getUsers()
+const getUsers = async ({ username }) => {
+	const result = await _getUsers({ username })
 	return new SuccessModel({
 		result
 	})
 }
 
-const login = async (ctx,username, password) => {
+const login = async ({ctx,username, password}) => {
 	const userInfo = await _login({username, password})
 	if(!userInfo){
 		return new ErrorModel(passwordError)
@@ -24,20 +24,27 @@ const login = async (ctx,username, password) => {
 	})
 }
 
-const deleteUser = async ( deleteIdStr ) => {
-	const _deleteIdStr = JSON.parse(deleteIdStr).join(",")
-	const result = await _deleteUsers(_deleteIdStr)
+const deleteUsers = async ({deleteIdsArr} ) => {
+	const deleteIdsStr = deleteIdsArr.join(",")
+	const result = await _deleteUsers(deleteIdsStr)
 	return new SuccessModel({
 		result
 	})
 }
 
-const createUser = async ({ username,password }) => {
-	const usernameRepeat = await _checkUserName(username)
+const createUser = async ({ username,password,nickname }) => {
+	const usernameRepeat = await _checkUserName(username,password)
 	if(usernameRepeat){
 		return new ErrorModel(userNameRepeat)
 	}
-	const result = await _createUsers({username,password})
+	const result = await _createUsers({username,password,nickname})
+	return new SuccessModel({
+		result
+	})
+}
+
+const updateUser = async ({ id,username,password,nickname }) => {
+	const result = await _updateUser({id,username,password,nickname})
 	return new SuccessModel({
 		result
 	})
@@ -46,7 +53,8 @@ const createUser = async ({ username,password }) => {
 
 module.exports = {
 	getUsers,
-	deleteUser,
+	deleteUsers,
 	createUser,
+	updateUser,
 	login
 }

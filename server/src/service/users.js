@@ -6,8 +6,13 @@ const _checkUserName = async (username) => {
 	return rows[0] || null
 }
 
-const _getUsers = async () => {
-	let sql = `SELECT * FROM users;`
+const _getUsers = async ({ username }) => {
+	let sql
+	if(username){
+		sql = `SELECT * FROM users WHERE username LIKE '%${username}%';`
+	}else {
+		sql = `select * from users;`
+	}
 	return await exec(sql)
 }
 
@@ -24,11 +29,19 @@ const _createUsers = async ({username,password}) => {
 	}
 }
 
+const _updateUser = async ({id,username,nickname,password}) => {
+	let sql = `UPDATE users SET username='${username}',nickname='${nickname}',password='${password}'
+	WHERE id=${id};`
+	return await exec(sql)
+}
+
+
 const _login = async ({username,password}) => {
-	const sql = `select id,username,nickname from users where username=${username} and \`password\`='${password}'`
+	const sql = `select id,username,nickname from users where username='${username}' AND \`password\`='${password}'`
 	const rows = await exec(sql)
 	return rows[0] || null
 }
+
 
 
 
@@ -38,6 +51,7 @@ module.exports = {
 	_getUsers,
 	_deleteUsers,
 	_createUsers,
+	_updateUser,
 	_checkUserName,
 	_login
 }

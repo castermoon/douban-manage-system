@@ -1,16 +1,17 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
-const { _getCelebrity,_deleteCelebrity,_createCelebrity } = require("../service/celebrity")
+const { _getCelebrity,_deleteCelebrity,_createCelebrity,_updateCelebrity } = require("../service/celebrity")
+const {_updateMovie} = require("../service/movies");
 
-const getCelebrity = async () => {
-	const result = await _getCelebrity()
+const getCelebrity = async ({name}) => {
+	const result = await _getCelebrity({name})
 	return new SuccessModel({
 		result
 	})
 }
 
-const deleteCelebrity = async ( deleteCelebrityIdStr ) => {
-	const _deleteCelebrityIdStr = JSON.parse(deleteCelebrityIdStr).join(",") //把数组字符串转化为数组后再转化为字符串，如"[1,2]" = "1,2"
-	const result = await _deleteCelebrity(_deleteCelebrityIdStr)
+const deleteCelebrity = async ( deleteIdsArr ) => {
+	const deleteIdsStr = deleteIdsArr.join(",")
+	const result = await _deleteCelebrity(deleteIdsStr)
 	return new SuccessModel({
 		result
 	})
@@ -24,9 +25,17 @@ const createCelebrity = async ({ name,icon,sex,constellation="",birth,vocation="
 }
 
 
+const updateCelebrity = async ( { id,name,icon,sex,constellation,birth,vocation,anotherName,anotherChineseName,indbLink,web,desc }) => {
+	const result = await _updateCelebrity({  id,name,icon,sex,constellation,birth,vocation,anotherName,anotherChineseName,indbLink,web,desc })
+	return new SuccessModel({
+		result
+	})
+}
+
 
 module.exports = {
 	getCelebrity,
 	deleteCelebrity,
-	createCelebrity
+	createCelebrity,
+	updateCelebrity
 }
