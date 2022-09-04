@@ -32,7 +32,7 @@ const ABreadcrumb: React.FC = () => {
     </Breadcrumb.Item>,
   ].concat(extraBreadcrumbItems);
   return (
-    <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+    <Breadcrumb style={{marginTop:5}}>{breadcrumbItems}</Breadcrumb>
   );
 };
 

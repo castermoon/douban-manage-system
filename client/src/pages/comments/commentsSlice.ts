@@ -4,6 +4,7 @@ import { message } from "antd";
 import type { RootState } from '../../store'
 
 import axios from "axios"
+import {setUserInfo} from "../login/loginSlice";
 const name = 'comment'
 export interface itemType{
   id:number;
@@ -114,8 +115,15 @@ const commentsSlice = createSlice({
     },
     [fetchData.fulfilled.type]: (state, action) => {
       state.status = "succ"
-      state.error = null;
-      state.list = action.payload.data.result
+      if(action.payload.errno === 0){
+        state.list = action.payload.data.result
+        state.error = null;
+      }else if(action.payload.error === 10002){
+        setUserInfo(null)
+        message.error(action.payload.message);
+      }else {
+        message.error(action.payload.message);
+      }
     },
     [fetchData.rejected.type]: (
       state,

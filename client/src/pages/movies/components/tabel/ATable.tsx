@@ -10,7 +10,8 @@ import {
 } from "../../slice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
 import {useSearchParams} from "react-router-dom";
-
+import {message} from "_antd@4.22.7@antd";
+import { setUserInfo } from "../../../login/loginSlice";
 
 
 const ATable: React.FC = () => {
@@ -21,11 +22,13 @@ const ATable: React.FC = () => {
   const selectedMoviesRowKeys = useAppSelector(state => state.movies.selectedMoviesRowKeys)
 
   const url = searchParams.toString()
+
   useEffect(() => {
     if(fetchStatus === "init"){
       dispatch(fetchMoviesData(url))
     }
   },[fetchStatus,url])
+
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
     dispatch(setMoviesTableSelectedRowKeys(newSelectedRowKeys))

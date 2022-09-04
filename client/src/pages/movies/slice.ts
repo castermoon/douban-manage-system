@@ -1,6 +1,6 @@
 import { createSlice,PayloadAction,createAsyncThunk } from '@reduxjs/toolkit'
 import { message } from "antd";
-
+import { setUserInfo } from "../login/loginSlice"
 import type { RootState } from '../../store'
 import axios from "axios"
 export interface movieDatatype{
@@ -120,8 +120,9 @@ const moviesSlice = createSlice({
         },
         [fetchMoviesData.fulfilled.type]: (state, action) => {
             state.status = "succ"
-            state.error = null;
-            state.moviesList = action.payload.data.moviesList
+            if(action.payload.errno === 0){
+                state.moviesList = action.payload.data.moviesList
+            }
         },
         [fetchMoviesData.rejected.type]: (
             state,

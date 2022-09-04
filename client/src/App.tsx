@@ -7,6 +7,7 @@ import { Home } from "./pages/home/Home";
 import { LongComments } from "./pages/longComments/LongComments";
 import { Comments } from "./pages/comments/comments";
 import {Users} from "./pages/users/Users";
+import Login from "./pages/login/Login";
 
 const App: FC = () => (
     // <BrowserRouter>
@@ -25,6 +26,7 @@ const App: FC = () => (
         <Route path="longComments" element={<LongComments/>}/>
         <Route path="comments" element={<Comments/>}/>
         <Route path="users" element={<Users/>}/>
+        <Route path="login" element={<Login/>}/>
       </Routes>
     </BrowserRouter>
 );

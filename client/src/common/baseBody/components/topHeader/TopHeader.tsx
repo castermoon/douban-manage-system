@@ -1,44 +1,67 @@
-import { Avatar,Dropdown,Space,Menu  } from 'antd';
-import React, { useState } from 'react';
+import { Avatar,Dropdown,Space,Menu,Button  } from 'antd';
+import React, {Fragment, useState} from "react";
 import styles from "./topheader.module.css"
 import ABreadcrumb from "../aBreadcrumb/ABreadcrumb";
 import { UserOutlined,DownOutlined } from '@ant-design/icons';
+import {Link, useNavigate} from "react-router-dom";
+import {logout, setUserInfo} from "../../../../pages/login/loginSlice";
+import {useAppDispatch} from "../../../../store/hook";
+import {useAppSelector} from "../../../../store/hook";
 
-const menu = (
-  <Menu
-    items={[
-      {
-        key: '1',
-        label: (
-          <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-            首页
-          </a>
-        ),
-      },
-      {
-        key: '2',
-        label: (
-          <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-            注销
-          </a>
-        ),
-        // icon: <SmileOutlined />,
-      }
-    ]}
-  />
-);
 
 const TopHeader: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const userInfo = useAppSelector(state => state.login.userInfo)
+  const handleLogout = () => {
+    dispatch(logout())
+      .then(() => {
+        navigate(`/login`)
+        dispatch(setUserInfo(null))
+      })
+  }
+
+  const handleLogin = () => {
+    navigate(`/login`)
+  }
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: '1',
+          label: (
+            <Link to={"/"}>首页</Link>
+          ),
+        },
+        {
+          key: '2',
+          label: (
+            <div onClick={handleLogout}>注销</div>
+          )
+        }
+      ]}
+    />
+  );
+
   return (
     <div className={styles["header"]}>
       <ABreadcrumb/>
       <div className={styles["users"]}>
-        <Avatar size="small" icon={<UserOutlined />} style={{marginRight:"3px"}}/>
-        <Dropdown overlay={menu}>
-          <a onClick={e => e.preventDefault()}>
-            <DownOutlined/>
-          </a>
-        </Dropdown>
+        {
+          userInfo ?
+            <Fragment>
+              <span className={styles["name"]}>{userInfo.nickname}</span>
+              <Avatar size="small" icon={<UserOutlined />} style={{marginRight:"3px"}}/>
+              <Dropdown overlay={menu}>
+                <a onClick={e => e.preventDefault()}>
+                  <DownOutlined/>
+                </a>
+              </Dropdown>
+            </Fragment>
+            :
+          <Button size={"small"} onClick={handleLogin}>登录</Button>
+        }
       </div>
     </div>
   );

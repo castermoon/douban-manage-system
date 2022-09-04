@@ -116,8 +116,11 @@ const celebritySlice = createSlice({
     },
     [fetchCelebrityData.fulfilled.type]: (state, action) => {
       state.status = "succ"
-      state.error = null;
-      state.celebrityList = action.payload.data.result
+      if(action.payload.errno === 0){
+        state.celebrityList = action.payload.data.result
+      }else {
+        message.error(action.payload.message);
+      }
     },
     [fetchCelebrityData.rejected.type]: (
       state,
