@@ -24,6 +24,11 @@ const login = async ({ctx,username, password}) => {
 	})
 }
 
+const logout = async ({ctx}) => {
+	delete ctx.session.userInfo
+	return new SuccessModel("退出成功")
+}
+
 const deleteUsers = async ({deleteIdsArr} ) => {
 	const deleteIdsStr = deleteIdsArr.join(",")
 	const result = await _deleteUsers(deleteIdsStr)
@@ -56,5 +61,6 @@ module.exports = {
 	deleteUsers,
 	createUser,
 	updateUser,
-	login
+	login,
+	logout
 }
