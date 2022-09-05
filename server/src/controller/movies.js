@@ -1,5 +1,6 @@
 const { SuccessModel, ErrorModel } = require("../model/resModel")
-const { _getMovieList,_deleteMovies,_createMovie,_updateMovie } = require("../service/movies")
+const { _getMovieList,_deleteMovies,_createMovie,_updateMovie,_addMovieRelation } = require("../service/movies")
+const {relationError} = require("../model/ErrorInfo");
 
 const getMovieList = async ({name}) => {
 	const moviesList = await _getMovieList({name})
@@ -29,11 +30,17 @@ const updateMovie = async ( { id,name,cover,type,web,country,language,timeLen,an
 		result
 	})
 }
+const addMovieRelation = async ({ movie_id,celebrity_id,position }) => {
+		const result = await _addMovieRelation({ movie_id,celebrity_id,position })
+		return new SuccessModel(result)
+}
+
 
 
 module.exports = {
 	getMovieList,
 	deleteMovies,
 	createMovie,
-	updateMovie
+	updateMovie,
+	addMovieRelation
 }

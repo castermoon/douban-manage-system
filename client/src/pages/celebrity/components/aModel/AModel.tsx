@@ -1,5 +1,5 @@
-import {Button, Form, Modal,Input,message } from "antd";
-import React, {useEffect, useState} from "react";
+import {Button, Form, Modal,Input } from "antd";
+import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../store/hook";
 import {createCelebrity, setIsModalVisible, setModelType, updateCelebrity} from "../../celebritySlice";
 import styles from "./aModel.module.css"
@@ -49,7 +49,7 @@ const AModel: React.FC = () => {
     <>
       <Button type="primary" onClick={handleCreateMovie} style={{ float:"right",marginRight:20 }}>新增人物</Button>
       {/*@ts-ignore*/}
-      <Modal title="新增人物" visible={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
+      <Modal title="新增人物" open={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
         <Form
           form={form}
           name="basic"

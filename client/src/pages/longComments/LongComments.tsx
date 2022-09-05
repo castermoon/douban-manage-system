@@ -1,6 +1,6 @@
-import React,{ useEffect } from "react";
+import React,{  } from "react";
 import BaseBody from "../../common/baseBody/BaseBody";
-import { Card,Input,Button } from "antd";
+import { Input,Button } from "antd";
 import ATable from "./components/tabel/ATable";
 import { useAppSelector,useAppDispatch } from "../../store/hook"
 import { deleteLongCommentsData,setLongCommentsStatus } from "./longCommentsSlice";

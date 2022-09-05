@@ -20,4 +20,9 @@ module.exports = {
 		errno: 10004,
 		message: '未知错误'
 	},
+	// 未知错误
+	relationError: {
+		errno: 10005,
+		message: '关联错误'
+	},
 }

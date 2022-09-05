@@ -1,7 +1,6 @@
 import { createSlice,PayloadAction,createAsyncThunk } from '@reduxjs/toolkit'
 import { message } from "antd";
-import { setUserInfo } from "../login/loginSlice"
-import type { RootState } from '../../store'
+
 import axios from "axios"
 export interface movieDatatype{
     id:number;
@@ -26,7 +25,9 @@ interface movieState {
     selectedMoviesRowKeys:number[],
     isModalVisible:Boolean,
     moviesRecord:movieDatatype, //弹出框编辑时表单自带的内容
-    modelType:"add" | "edit"    //弹出框是添加还是编辑
+    modelType:"add" | "edit",    //弹出框是添加还是编辑
+    addRelationModelVisible:Boolean,
+    addRelationMovieId:number //弹出添加关联框时被关联的电影的id
 }
 
 
@@ -37,7 +38,9 @@ const initialState:movieState = {
     selectedMoviesRowKeys:[],
     isModalVisible:false,
     moviesRecord:{} as movieDatatype,
-    modelType:"add"
+    modelType:"add",
+    addRelationModelVisible:false,
+    addRelationMovieId:0
 }
 
 export const fetchMoviesData = createAsyncThunk('movies/fetchMoviesData', async (url:string) => {
@@ -93,6 +96,15 @@ export const updateMovie = createAsyncThunk('movies/updateMovie', async (values:
     return response.data
 })
 
+export const addMovieRelation = createAsyncThunk('movies/addMovieRelation', async (values:any) => {
+    const { movie_id,celebrity_id,position } = values
+    const response = await axios.post("/api/addMovieRelation",{
+        movie_id,
+        celebrity_id,
+        position
+    })
+    return response.data
+})
 
 const moviesSlice = createSlice({
     name: 'movies',
@@ -112,6 +124,12 @@ const moviesSlice = createSlice({
         },
         setModelType:(state,action) => {
             state.modelType = action.payload
+        },
+        setAddRelationModelVisible:(state,action) => {
+            state.addRelationModelVisible = action.payload
+        },
+        setAddRelationMovieId:(state,action) => {
+            state.addRelationMovieId = action.payload
         },
     },
     extraReducers: {
@@ -154,10 +172,25 @@ const moviesSlice = createSlice({
         [updateMovie.rejected.type]: (state, action) => {
             message.error('编辑失败');
         },
+        [addMovieRelation.fulfilled.type]: (state, action) => {
+            message.info('添加成功');
+        },
+        [addMovieRelation.rejected.type]: (state, action) => {
+            message.error('添加失败');
+        },
+
     }
 })
 
-export const { setMoviesTableSelectedRowKeys,setIsModalVisible,setMoviesStatus,setMoviesRecord,setModelType } = moviesSlice.actions
+export const {
+    setMoviesTableSelectedRowKeys,
+    setIsModalVisible,
+    setMoviesStatus,
+    setMoviesRecord,
+    setModelType,
+    setAddRelationModelVisible,
+    setAddRelationMovieId
+} = moviesSlice.actions
 
 // //Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value

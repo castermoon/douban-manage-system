@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from "react";
+import React from "react";
 import { Form,Input,Button,Card  } from "antd";
 import styles from "./login.module.css"
 import { login,loginInfo } from "./loginSlice"

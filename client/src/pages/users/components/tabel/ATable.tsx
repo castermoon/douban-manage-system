@@ -1,5 +1,5 @@
-import { Form, Input, InputNumber, Popconfirm, Table, Typography,Button,Tooltip } from 'antd';
-import React, {useEffect, useState} from "react";
+import { Table,Button } from 'antd';
+import React, {useEffect} from "react";
 import {
   fetchData,
   itemType,

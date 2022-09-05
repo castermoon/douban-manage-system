@@ -1,6 +1,5 @@
 import { createSlice,PayloadAction,createAsyncThunk } from '@reduxjs/toolkit'
 import { message } from "antd";
-import type { RootState } from '../../store'
 import axios from "axios"
 
 

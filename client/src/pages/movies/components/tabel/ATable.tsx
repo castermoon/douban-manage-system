@@ -1,17 +1,18 @@
-import { Form, Input, InputNumber, Popconfirm, Table, Typography,Button,Tooltip } from 'antd';
-import React, {useEffect, useState} from "react";
+import { Table, Button, Tooltip, Image} from "antd";
+import React, {Fragment, useEffect} from "react";
 import {
   fetchMoviesData,
   movieDatatype,
   setMoviesTableSelectedRowKeys,
   setIsModalVisible,
   setMoviesRecord,
-  setModelType
+  setModelType,
+  setAddRelationModelVisible, setAddRelationMovieId
 } from "../../slice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
 import {useSearchParams} from "react-router-dom";
-import {message} from "_antd@4.22.7@antd";
-import { setUserInfo } from "../../../login/loginSlice";
+import {AddRelationModel} from "../addRelationModel/AddRelationModel";
+
 
 
 const ATable: React.FC = () => {
@@ -45,16 +46,24 @@ const ATable: React.FC = () => {
     dispatch(setMoviesRecord(moviesRecord))
   }
 
+  const handleAddRelation = (movieId:number) => {
+    dispatch(setAddRelationModelVisible(true))
+    dispatch(setAddRelationMovieId(movieId))
+  }
+
   const columns = [
     {
       title: '操作',
       align: "center",
       dataIndex: 'operation',
-      width: 50,
+      width: 70,
       render: (_: any, record: movieDatatype) => {
         return  (
-          <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
-        )
+          <Fragment>
+            <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleAddRelation(record.id)}>添加关联</Button>
+          </Fragment>
+      )
       }
     },
     {
@@ -86,9 +95,7 @@ const ATable: React.FC = () => {
         showTitle: false,
       },
       render: (cover:string) => (
-        <Tooltip placement="topLeft" title={cover}>
-          {cover}
-        </Tooltip>
+        <Image src={cover} width={"100px"}/>
       ),
     },
     {

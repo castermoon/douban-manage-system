@@ -31,10 +31,15 @@ const _updateMovie = async ( { id,name,cover,type,web,country,language,timeLen,a
 	return await exec(sql)
 }
 
+const _addMovieRelation = async ({ movie_id,celebrity_id,position }) => {
+	let sql = `insert into movie_celebrity(celebrity_id,movie_id,position) values(${celebrity_id},${movie_id},'${position}');`
+	return await exec(sql)
+}
 
 module.exports = {
 	_getMovieList,
 	_deleteMovies,
 	_createMovie,
-	_updateMovie
+	_updateMovie,
+	_addMovieRelation
 }

@@ -1,5 +1,5 @@
-import {Button, Form, Modal,Input,message,InputNumber } from "antd";
-import React, {useEffect, useState} from "react";
+import {Button, Form, Modal,Input,InputNumber } from "antd";
+import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../store/hook";
 import {createLongComment, setIsModalVisible, setModelType, updateLongComment} from "../../longCommentsSlice";
 import styles from "./aModel.module.css"
@@ -49,7 +49,7 @@ const AModel: React.FC = () => {
     <>
       <Button type="primary" onClick={handleCreateLongComment} style={{ float:"right",marginRight:20 }}>新增长评</Button>
       {/*@ts-ignore*/}
-      <Modal title="新增电影" visible={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
+      <Modal title="新增电影" open={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
         <Form
           form={form}
           name="basic"

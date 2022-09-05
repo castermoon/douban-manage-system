@@ -1,11 +1,12 @@
-import React,{ useEffect } from "react";
+import React,{ } from "react";
 import BaseBody from "../../common/baseBody/BaseBody";
-import { Card,Input,Button } from "antd";
+import { Input,Button } from "antd";
 import ATable from "./components/tabel/ATable";
 import { useAppSelector,useAppDispatch } from "../../store/hook"
 import { deleteMoviesData,setMoviesStatus } from "./slice";
 import AModel from "./components/aModel/AModel";
 import { useNavigate } from "react-router-dom";
+import {AddRelationModel} from "./components/addRelationModel/AddRelationModel";
 
 const { Search } = Input;
 
@@ -27,6 +28,8 @@ export const Movie: React.FC = (props) => {
     dispatch(setMoviesStatus("init"))
   }
 
+
+
   return (
     <BaseBody>
       <Search placeholder="按照名字搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />
@@ -34,6 +37,7 @@ export const Movie: React.FC = (props) => {
       {/*<Search placeholder="按照作者搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />*/}
       <Button type="primary" onClick={() => handleMoviesDelete(selectedMoviesRowKeys)} style={{ float:"right" }}>删除选中电影</Button>
       <AModel/>
+      <AddRelationModel/>
       <ATable/>
     </BaseBody>
   );
