@@ -29,8 +29,6 @@ export const AddRelationModel: React.FC = () => {
     form.setFieldValue("movie_id",addRelationMovieId)
   })
 
-
-
   return (
     <>
       {/*@ts-ignore*/}
