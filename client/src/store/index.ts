@@ -16,6 +16,8 @@ import longCommentsSlice from "../pages/longComments/longCommentsSlice";
 import commentsSlice from "../pages/comments/commentsSlice";
 import usersSlice from "../pages/users/slice"
 import loginSlice from "../pages/login/loginSlice"
+import movieRelationSlice from "../pages/movieRelationList/slice"
+
 const persistConfig = {  // **
     key: 'root',// 储存的标识名
     storage, // 储存方式
@@ -29,9 +31,10 @@ const rootReducer = combineReducers({
     comments:commentsSlice,
     users:usersSlice,
     login:loginSlice,
+    movieRelation:movieRelationSlice
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer) // **
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
     reducer: persistedReducer,

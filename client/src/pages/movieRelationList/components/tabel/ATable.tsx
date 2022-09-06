@@ -1,4 +1,4 @@
-import {  Table,Button,Tooltip } from 'antd';
+import { Table,Button } from 'antd';
 import React, {useEffect} from "react";
 import {
   fetchData,
@@ -7,7 +7,7 @@ import {
   setIsModalVisible,
   setRecord,
   setModelType
-} from "../../commentsSlice";
+} from "../../slice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
 import {useSearchParams} from "react-router-dom";
 
@@ -16,8 +16,8 @@ import {useSearchParams} from "react-router-dom";
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
   const [searchParams]= useSearchParams()
-  const tableData = useAppSelector(state => state.comments.list)
-  const fetchStatus = useAppSelector(state => state.comments.status)
+  const tableData = useAppSelector(state => state.movieRelation.list)
+  const fetchStatus = useAppSelector(state => state.movieRelation.status)
   const url = searchParams.toString()
   useEffect(() => {
     if(fetchStatus === "init"){
@@ -48,7 +48,7 @@ const ATable: React.FC = () => {
       width: 50,
       render: (_: any, record: itemType) => {
         return  (
-          <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
+          <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)} style={{marginBottom:5}}>编辑</Button>
         )
       }
     },
@@ -59,65 +59,27 @@ const ATable: React.FC = () => {
       align: 'center'
     },
     {
-      title: '评论者id',
-      dataIndex: 'user_id',
+      title: '电影id',
+      dataIndex: 'movie_id',
       width: '60px',
       align: 'center'
     },
     {
-      title: '电影id',
-      dataIndex: 'movie_id',
+      title: '人物id',
+      dataIndex: 'celebrity_id',
       width:  "30px",
       align: 'center',
     },
     {
-      title: '是否看过',
-      dataIndex: 'status',
+      title: '人物名称',
+      dataIndex: 'name',
+      width:  "30px",
+      align: 'center',
+    },
+    {
+      title: '职位',
+      dataIndex: 'position',
       width: '60px',
-      align: "center"
-    },
-    {
-      title: '标签',
-      dataIndex: 'labelList',
-      width: '60px',
-      align: "center"
-    },
-    {
-      title: '是否自己可见',
-      dataIndex: 'onlyMe',
-      width: '60px',
-      align: "center"
-    },
-    {
-      title: '是否分享',
-      dataIndex: 'isShare',
-      width: '60px',
-      align: "center"
-    },
-    {
-      title: '内容',
-      dataIndex: 'content',
-      width: '100px',
-      align: "center",
-      ellipsis: {
-        showTitle: false,
-      },
-      render: (content:string) => (
-        <Tooltip placement="topLeft" title={content}>
-          {content}
-        </Tooltip>
-      ),
-    },
-    {
-      title: '日期',
-      dataIndex: 'date',
-      width: '80px',
-      align: "center"
-    },
-    {
-      title: '评分',
-      dataIndex: 'score',
-      width: '50px',
       align: "center"
     }
   ];

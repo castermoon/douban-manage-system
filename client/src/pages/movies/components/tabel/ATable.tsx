@@ -10,25 +10,25 @@ import {
   setAddRelationModelVisible, setAddRelationMovieId
 } from "../../slice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
-import {useSearchParams} from "react-router-dom";
-import {AddRelationModel} from "../addRelationModel/AddRelationModel";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {setStatus} from "../../../movieRelationList/slice";
 
 
 
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [searchParams,setSearchParams]= useSearchParams()
+  const [searchParams]= useSearchParams()
   const tableData = useAppSelector(state => state.movies.moviesList)
   const fetchStatus = useAppSelector(state => state.movies.status)
   const selectedMoviesRowKeys = useAppSelector(state => state.movies.selectedMoviesRowKeys)
-
+  const navigate = useNavigate()
   const url = searchParams.toString()
 
   useEffect(() => {
     if(fetchStatus === "init"){
       dispatch(fetchMoviesData(url))
     }
-  },[fetchStatus,url])
+  },[fetchStatus,url,dispatch])
 
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
@@ -51,6 +51,11 @@ const ATable: React.FC = () => {
     dispatch(setAddRelationMovieId(movieId))
   }
 
+  const handleLinkRelationPage = (movieId:number) => {
+    navigate(`/movies/movieRelationList?movie_id=${movieId}`)
+    dispatch(setStatus("init"))
+  }
+
   const columns = [
     {
       title: '操作',
@@ -60,10 +65,11 @@ const ATable: React.FC = () => {
       render: (_: any, record: movieDatatype) => {
         return  (
           <Fragment>
-            <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
-            <Button type={"primary"} size={"small"} onClick={() => handleAddRelation(record.id)}>添加关联</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)} style={{marginBottom:5}}>编辑</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleAddRelation(record.id)} style={{marginBottom:5}}>添加关联</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleLinkRelationPage(record.id)}>查看所有关联</Button>
           </Fragment>
-      )
+        )
       }
     },
     {

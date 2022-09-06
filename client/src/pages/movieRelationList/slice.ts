@@ -2,13 +2,14 @@ import { createSlice,PayloadAction,createAsyncThunk } from '@reduxjs/toolkit'
 import { message } from "antd";
 
 import axios from "axios"
-const name = 'user'
+const name = 'movieRelation'
 
 export interface itemType{
   id:number;
-  username:string;
-  password:string;
-  nickname:string;
+  movie_id:number;
+  celebrity_id:number;
+  position:string;
+  name:string;
 }
 
 interface state {
@@ -33,12 +34,12 @@ const initialState:state = {
 }
 
 export const fetchData = createAsyncThunk(`${name}/fetchData`, async (url:string) => {
-  const response = await axios.get(`/api/getUsers?${url}`)
+  const response = await axios.get(`/api/getMovieRelation?${url}`)
   return response.data
 })
 
 export const deleteData = createAsyncThunk(`${name}/deleteData`, async (deleteIdsArr:number[]) => {
-  const response = await axios.post("/api/deleteUsers",{
+  const response = await axios.post("/api/deleteMovieRelation",{
     deleteIdsArr
   })
   return response.data
@@ -46,23 +47,17 @@ export const deleteData = createAsyncThunk(`${name}/deleteData`, async (deleteId
 
 
 export const createData = createAsyncThunk(`${name}/create`, async (values:any) => {
-  const { username, password, nickname } = values
-  console.log(nickname)
-  const response = await axios.post("/api/createUser",{
-    username,
-    password,
-    nickname:nickname||username
+  const { movie_id,celebrity_id,position  } = values
+  const response = await axios.post("/api/createMovieRelation",{
+    movie_id,celebrity_id,position
   })
   return response.data
 })
 
 export const updateData = createAsyncThunk(`${name}/update`, async (values:any) => {
-  const { id,username,password,nickname, } = values
-  const response = await axios.post("/api/updateUser",{
-    id,
-    username,
-    password,
-    nickname,
+  const { id,movie_id,celebrity_id,position   } = values
+  const response = await axios.post("/api/updateMovieRelation",{
+    id,position,movie_id,celebrity_id
   })
   return response.data
 })

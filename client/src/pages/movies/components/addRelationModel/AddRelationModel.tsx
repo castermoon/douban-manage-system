@@ -1,9 +1,8 @@
 import {Button, Form, Modal,Input,Select,InputNumber } from "antd";
 import React, {useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
-import {addMovieRelation, setAddRelationModelVisible} from "../../slice";
+import {createMovieRelation, setAddRelationModelVisible} from "../../slice";
 import styles from "./aModel.module.css"
-import {message} from "_antd@4.23.0@antd";
 
 const { Option } = Select;
 
@@ -17,7 +16,7 @@ export const AddRelationModel: React.FC = () => {
   };
 
   const onFinish = (values: any) => {
-    dispatch(addMovieRelation(values))
+    dispatch(createMovieRelation(values))
   };
 
   const onFinishFailed = (errorInfo: any) => {

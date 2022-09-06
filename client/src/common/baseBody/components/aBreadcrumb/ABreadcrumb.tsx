@@ -1,14 +1,15 @@
-import { Alert, Breadcrumb } from 'antd';
-import React, { useState } from 'react';
-import styles from "./aBreadcrumb.module.css"
-import { HashRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
+import { Breadcrumb } from 'antd';
+import React, {  } from 'react';
+import { Link,useLocation } from 'react-router-dom';
 
 const breadcrumbNameMap: Record<string, string> = {
   '/movies': '电影管理',
   '/celebrity': '人物管理',
   '/comments': '短评',
   '/longComments': '长评',
-  '/users': '用户管理'
+  '/users': '用户管理',
+  "/movies/movieRelationList":"电影关联",
+  "/celebrity/movieRelationList":"人物关联"
 };
 
 

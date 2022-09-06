@@ -49,7 +49,7 @@ const AModel: React.FC = () => {
     <>
       <Button type="primary" onClick={handleCreate} style={{ float:"right",marginRight:20 }}>新增短评</Button>
       {/*@ts-ignore*/}
-      <Modal title="新增电影" visible={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
+      <Modal title="新增电影" open={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
         <Form
           form={form}
           name="basic"

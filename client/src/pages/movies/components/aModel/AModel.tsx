@@ -1,5 +1,5 @@
-import {Button, Form, Modal,Input,message } from "antd";
-import React, {useEffect, useState} from "react";
+import {Button, Form, Modal,Input } from "antd";
+import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../store/hook";
 import {createMovie, setIsModalVisible, setModelType, updateMovie} from "../../slice";
 import styles from "./aModel.module.css"

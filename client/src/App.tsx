@@ -6,8 +6,9 @@ import { Celebrity } from "./pages/celebrity/Celebrity";
 import { Home } from "./pages/home/Home";
 import { LongComments } from "./pages/longComments/LongComments";
 import { Comments } from "./pages/comments/comments";
-import {Users} from "./pages/users/Users";
+import { Users } from "./pages/users/Users";
 import Login from "./pages/login/Login";
+import { MovieRelationList } from "./pages/movieRelationList/MovieRelationList";
 
 const App: FC = () => (
     // <BrowserRouter>
@@ -27,6 +28,8 @@ const App: FC = () => (
         <Route path="comments" element={<Comments/>}/>
         <Route path="users" element={<Users/>}/>
         <Route path="login" element={<Login/>}/>
+        <Route path="movies/movieRelationList" element={<MovieRelationList/>}/>
+        <Route path="celebrity/movieRelationList" element={<MovieRelationList/>}/>
       </Routes>
     </BrowserRouter>
 );

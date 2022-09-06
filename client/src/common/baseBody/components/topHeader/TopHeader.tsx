@@ -1,5 +1,5 @@
-import { Avatar,Dropdown,Space,Menu,Button  } from 'antd';
-import React, {Fragment, useState} from "react";
+import { Avatar,Dropdown,Menu,Button  } from 'antd';
+import React, {Fragment} from "react";
 import styles from "./topheader.module.css"
 import ABreadcrumb from "../aBreadcrumb/ABreadcrumb";
 import { UserOutlined,DownOutlined } from '@ant-design/icons';
@@ -54,9 +54,9 @@ const TopHeader: React.FC = () => {
               <span className={styles["name"]}>{userInfo.nickname}</span>
               <Avatar size="small" icon={<UserOutlined />} style={{marginRight:"3px"}}/>
               <Dropdown overlay={menu}>
-                <a onClick={e => e.preventDefault()}>
+                <span onClick={e => e.preventDefault()}>
                   <DownOutlined/>
-                </a>
+                </span>
               </Dropdown>
             </Fragment>
             :

@@ -30,7 +30,7 @@ export const Users: React.FC = (props) => {
   return (
     <BaseBody>
       <Search placeholder="按照用户名搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />
-      <Button type="primary" onClick={() => handleDelete(selectedRowKeys)} style={{ float:"right" }}>删除选中短评</Button>
+      <Button type="primary" onClick={() => handleDelete(selectedRowKeys)} style={{ float:"right" }}>删除选中用户</Button>
       <AModel/>
       <ATable/>
     </BaseBody>

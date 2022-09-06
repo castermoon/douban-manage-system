@@ -15,7 +15,7 @@ import {useSearchParams} from "react-router-dom";
 
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [searchParams,setSearchParams]= useSearchParams()
+  const [searchParams]= useSearchParams()
   const tableData = useAppSelector(state => state.users.list)
   const fetchStatus = useAppSelector(state => state.users.status)
   const url = searchParams.toString()
@@ -23,7 +23,7 @@ const ATable: React.FC = () => {
     if(fetchStatus === "init"){
       dispatch(fetchData(url))
     }
-  },[fetchStatus,url])
+  },[fetchStatus,url,dispatch])
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
     dispatch(setTableSelectedRowKeys(newSelectedRowKeys))

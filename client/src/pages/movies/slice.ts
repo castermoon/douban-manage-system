@@ -45,7 +45,6 @@ const initialState:movieState = {
 
 export const fetchMoviesData = createAsyncThunk('movies/fetchMoviesData', async (url:string) => {
     const response = await axios.get(`/api/getMovies?${url}`)
-    // console.log(response.data)
     return response.data
 })
 
@@ -96,7 +95,7 @@ export const updateMovie = createAsyncThunk('movies/updateMovie', async (values:
     return response.data
 })
 
-export const addMovieRelation = createAsyncThunk('movies/addMovieRelation', async (values:any) => {
+export const createMovieRelation = createAsyncThunk('movies/addMovieRelation', async (values:any) => {
     const { movie_id,celebrity_id,position } = values
     const response = await axios.post("/api/addMovieRelation",{
         movie_id,
@@ -172,10 +171,10 @@ const moviesSlice = createSlice({
         [updateMovie.rejected.type]: (state, action) => {
             message.error('编辑失败');
         },
-        [addMovieRelation.fulfilled.type]: (state, action) => {
+        [createMovieRelation.fulfilled.type]: (state, action) => {
             message.info('添加成功');
         },
-        [addMovieRelation.rejected.type]: (state, action) => {
+        [createMovieRelation.rejected.type]: (state, action) => {
             message.error('添加失败');
         },
 

@@ -1,5 +1,5 @@
 import { Table,Button,Tooltip } from 'antd';
-import React, {useEffect} from "react";
+import React, {Fragment, useEffect} from "react";
 import {
   fetchCelebrityData,
   celebrityItemType,
@@ -9,22 +9,24 @@ import {
   setModelType
 } from "../../celebritySlice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {setStatus} from "../../../movieRelationList/slice";
 
 
 
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [searchParams,setSearchParams]= useSearchParams()
+  const [searchParams]= useSearchParams()
   const tableData = useAppSelector(state => state.celebrity.celebrityList)
   const fetchStatus = useAppSelector(state => state.celebrity.status)
   const selectedCelebrityRowKeys = useAppSelector(state => state.celebrity.selectedCelebrityRowKeys)
   const url = searchParams.toString()
+  const navigate = useNavigate()
   useEffect(() => {
     if(fetchStatus === "init"){
       dispatch(fetchCelebrityData(url))
     }
-  },[fetchStatus,url])
+  },[fetchStatus,url,dispatch])
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
     dispatch(setCelebrityTableSelectedRowKeys(newSelectedRowKeys))
@@ -41,16 +43,25 @@ const ATable: React.FC = () => {
     dispatch(setCelebrityRecord(celebrityRecord))
   }
 
+  const handleNavigateRelation = (celebrity_id:number) => {
+    navigate(`/celebrity/movieRelationList?celebrity_id=${celebrity_id}`)
+    dispatch(setStatus("init"))
+  }
+
+
   const columns = [
     {
       title: '操作',
       align: "center",
       dataIndex: 'operation',
-      width: 50,
+      width: 120,
       render: (_: any, record: celebrityItemType) => {
         return  (
-          <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
-        )
+          <Fragment>
+            <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)}>编辑</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleNavigateRelation(record.id)}>查看所有关联</Button>
+          </Fragment>
+      )
       }
     },
     {

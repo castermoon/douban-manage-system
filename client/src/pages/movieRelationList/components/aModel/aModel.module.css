@@ -1,0 +1,32 @@
+/*.inputLine{*/
+/*    margin-bottom: 15px;*/
+/*    overflow: hidden;*/
+/*    display: flex;*/
+/*}*/
+/*.inputLine .input{*/
+/*    flex:1;*/
+/*}*/
+
+/*.inputLine .input:nth-child(1){*/
+/*    margin-right: 30px;*/
+/*}*/
+
+/*.textArea{*/
+/*    margin-bottom: 15px;*/
+/*}*/
+
+.input{
+    width:460px;
+    float: left;
+}
+
+
+.textArea{
+    float:left;
+    width:100%
+}
+
+.submit{
+    float:right;
+    margin-right: 50px;
+}

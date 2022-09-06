@@ -4,7 +4,7 @@ import BaseBody from "../../common/baseBody/BaseBody";
 import {Button,Input} from "antd";
 import AModel from "../celebrity/components/aModel/AModel";
 import ATable from "../celebrity/components/tabel/ATable";
-import {useNavigate} from "_react-router-dom@6.3.0@react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {deleteCelebrityData, setCelebrityStatus} from "./celebritySlice";
 const { Search } = Input;
 

@@ -15,7 +15,7 @@ import {useSearchParams} from "react-router-dom";
 
 const ATable: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [searchParams,setSearchParams]= useSearchParams()
+  const [searchParams]= useSearchParams()
   const tableData = useAppSelector(state => state.longComments.longCommentsList)
   const fetchStatus = useAppSelector(state => state.longComments.status)
   const selectedLongCommentsRowKeys = useAppSelector(state => state.longComments.selectedLongCommentsRowKeys)
@@ -24,7 +24,7 @@ const ATable: React.FC = () => {
     if(fetchStatus === "init"){
       dispatch(fetchLongCommentsData(url))
     }
-  },[fetchStatus,url])
+  },[fetchStatus,url,dispatch])
 
   const onSelectChange = (newSelectedRowKeys: number[]) => {
     dispatch(setLongCommentsTableSelectedRowKeys(newSelectedRowKeys))
