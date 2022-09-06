@@ -12,7 +12,7 @@ const items = [
   {
     label: '评论管理',
     key: 'com',
-    children: [{ label: '短评', key: 'comments' },{ label: '长评', key: 'longComments' }],
+    children: [{ label: '短评', key: 'com/comments' },{ label: '长评', key: 'com/longComments' }],
   },
   { label: '用户管理页', key: 'users' }
 ];

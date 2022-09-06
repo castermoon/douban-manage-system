@@ -4,12 +4,14 @@ import { Link,useLocation } from 'react-router-dom';
 
 const breadcrumbNameMap: Record<string, string> = {
   '/movies': '电影管理',
-  '/celebrity': '人物管理',
-  '/comments': '短评',
-  '/longComments': '长评',
-  '/users': '用户管理',
   "/movies/movieRelationList":"电影关联",
-  "/celebrity/movieRelationList":"人物关联"
+  "/movies/movieStatistics":"电影统计",
+  '/celebrity': '人物管理',
+  "/celebrity/movieRelationList":"人物关联",
+  "/com":"评论管理",
+  '/com/comments': '短评',
+  '/com/longComments': '长评',
+  '/users': '用户管理',
 };
 
 

@@ -3,7 +3,57 @@ import BaseBody from "../../common/baseBody/BaseBody";
 import {Avatar, Card,Row,Col,Statistic} from "antd";
 import { UserOutlined,DatabaseOutlined,SmileOutlined } from '@ant-design/icons';
 import {useAppSelector} from "../../store/hook";
-import {UserLineChart} from "./components/usersLineChart/UserLineChart";
+import {UserLineChart} from "../../common/usersLineChart/UserLineChart";
+
+const data = [
+  {
+    "Date": "2022-08-01",
+    "scales": 1998
+  },
+  {
+    "Date": "2022-08-02",
+    "scales": 2010
+  },
+  {
+    "Date": "2022-08-03",
+    "scales": 1148
+  },
+  {
+    "Date": "2022-08-04",
+    "scales": 1635
+  },
+  {
+    "Date": "2022-08-05",
+    "scales": 2456
+  },
+  {
+    "Date": "2022-08-06",
+    "scales": 3667
+  },
+  {
+    "Date": "2022-08-07",
+    "scales": 2502
+  },
+  {
+    "Date": "2022-08-08",
+    "scales": 1987
+  },
+  {
+    "Date": "2022-08-09",
+    "scales": 2222
+  },
+]
+const ChartConfig = {
+  data,
+  padding: 'auto',
+  xField: 'Date',
+  yField: 'scales',
+  xAxis: {
+    // type: 'timeCat',
+    tickCount: 5,
+  },
+};
+
 
 export const Home: React.FC = (props) => {
   const userInfo = useAppSelector(state => state.login.userInfo)
@@ -58,7 +108,9 @@ export const Home: React.FC = (props) => {
           <Card><Statistic title="人物总量" value={112893} prefix={<SmileOutlined />}/></Card>
         </Col>
       </Row>
-      <UserLineChart/>
+      <Card title={"用户访问量折线图"} style={{marginTop:20}} bodyStyle={{height:"300px"}}>
+        <UserLineChart config={ChartConfig}/>
+      </Card>
     </BaseBody>
   );
 };

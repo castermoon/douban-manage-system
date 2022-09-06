@@ -7,7 +7,8 @@ const {
 	_createMovieRelation,
 	_getMovieRelation,
 	_deleteMovieRelation,
-	_updateMovieRelation
+	_updateMovieRelation,
+	_getMovieScore
 } = require("../service/movies")
 const {relationError} = require("../model/ErrorInfo");
 
@@ -65,6 +66,12 @@ const updateMovieRelation = async ({ id,position,movie_id,celebrity_id } ) => {
 	return new SuccessModel(result)
 }
 
+const getMovieStatistics = async ({ movie_id }) => {
+	const scoreDistribution = await _getMovieScore({ movie_id })
+	return new SuccessModel({
+		scoreDistribution
+	})
+}
 
 module.exports = {
 	getMovieList,
@@ -74,5 +81,6 @@ module.exports = {
 	createMovieRelation,
 	getMovieRelation,
 	deleteMovieRelation,
-	updateMovieRelation
+	updateMovieRelation,
+	getMovieStatistics,
 }

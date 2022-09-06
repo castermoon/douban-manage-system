@@ -55,6 +55,30 @@ const _updateMovieRelation = async ({ id,position,movie_id,celebrity_id}) => {
 	return await exec(sql)
 }
 
+const _getMovieScore = async ({ movie_id }) => {
+	let sql1 = `SELECT score FROM comments WHERE movie_id=${movie_id} AND score>0;`
+	let sql2 = `SELECT score FROM longComments WHERE movie_id=${movie_id} AND score>0;`
+	const commentsScore = await exec(sql1)
+	const longCommentsScore = await exec(sql2)
+	const result = {
+		2:0,
+		4:0,
+		6:0,
+		8:0,
+		10:0
+	}
+	for(let i = 0;i < commentsScore.length;i++){
+		const c = commentsScore[i].score
+		result[c] = result[c] + 1
+	}
+	for(let i = 0;i < longCommentsScore.length;i++){
+		const c = longCommentsScore[i].score
+		result[c] = result[c] + 1
+	}
+	return result
+}
+
+
 module.exports = {
 	_getMovieList,
 	_deleteMovies,
@@ -63,5 +87,6 @@ module.exports = {
 	_createMovieRelation,
 	_getMovieRelation,
 	_deleteMovieRelation,
-	_updateMovieRelation
+	_updateMovieRelation,
+	_getMovieScore
 }

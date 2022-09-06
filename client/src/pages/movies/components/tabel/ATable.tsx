@@ -56,6 +56,10 @@ const ATable: React.FC = () => {
     dispatch(setStatus("init"))
   }
 
+  const handleNavigateStatistics = (movieId:number) => {
+    navigate(`/movies/movieStatistics?movie_id=${movieId}`)
+  }
+
   const columns = [
     {
       title: '操作',
@@ -67,7 +71,8 @@ const ATable: React.FC = () => {
           <Fragment>
             <Button type={"primary"} size={"small"} onClick={() => handleEditRecord(record)} style={{marginBottom:5}}>编辑</Button>
             <Button type={"primary"} size={"small"} onClick={() => handleAddRelation(record.id)} style={{marginBottom:5}}>添加关联</Button>
-            <Button type={"primary"} size={"small"} onClick={() => handleLinkRelationPage(record.id)}>查看所有关联</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleLinkRelationPage(record.id)} style={{marginBottom:5}}>查看所有关联</Button>
+            <Button type={"primary"} size={"small"} onClick={() => handleNavigateStatistics(record.id)} style={{marginBottom:5}}>查询统计信息</Button>
           </Fragment>
         )
       }

@@ -7,7 +7,8 @@ const {
 	createMovieRelation,
 	getMovieRelation,
 	deleteMovieRelation,
-	updateMovieRelation
+	updateMovieRelation,
+	getMovieStatistics
 } = require('../../controller/movies')
 const { loginCheck } = require("../../middlewares/loginChecks")
 
@@ -53,4 +54,10 @@ router.post('/updateMovieRelation',loginCheck,async (ctx,next) => {
 	ctx.body = await updateMovieRelation({ id,position,movie_id,celebrity_id } )
 })
 
+router.get('/getMovieStatistics',async (ctx,next) => {
+	const { movie_id  } = ctx.request.query
+	ctx.body = await getMovieStatistics({ movie_id } )
+})
+// SELECT score FROM comments WHERE movie_id=1 AND score>0;
+// SELECT score FROM longComments WHERE movie_id=1 AND score>0;
 module.exports = router

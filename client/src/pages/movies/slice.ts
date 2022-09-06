@@ -105,6 +105,8 @@ export const createMovieRelation = createAsyncThunk('movies/addMovieRelation', a
     return response.data
 })
 
+
+
 const moviesSlice = createSlice({
     name: 'movies',
     initialState,
@@ -136,9 +138,11 @@ const moviesSlice = createSlice({
             state.status = "loading"
         },
         [fetchMoviesData.fulfilled.type]: (state, action) => {
-            state.status = "succ"
             if(action.payload.errno === 0){
+                state.status = "succ"
                 state.moviesList = action.payload.data.moviesList
+            }else {
+                state.status = "init"
             }
         },
         [fetchMoviesData.rejected.type]: (
