@@ -5,7 +5,7 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
+const path = require("path")
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const { REDIS_CONF } = require('./conf/db')
@@ -16,6 +16,7 @@ const celebrity = require('./routes/api/celebrity')
 const comments = require('./routes/api/comments')
 const longComments = require('./routes/api/longComments')
 const users = require('./routes/api/users')
+const koaStatic = require('koa-static')
 
 // error handler
 onerror(app)
@@ -26,7 +27,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(path.resolve(__dirname,'../public')))
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
