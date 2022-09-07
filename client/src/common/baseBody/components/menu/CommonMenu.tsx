@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import React, {  } from 'react';
+import React from 'react';
 import styles from "./commonMenu.module.css"
 import { useNavigate,useLocation } from "react-router-dom";
 

@@ -23,9 +23,11 @@ interface movieState {
     status:"init" | "loading" | "succ" | "failed"
     error: string | null;
     selectedMoviesRowKeys:number[],
-    isModalVisible:Boolean,
-    moviesRecord:movieDatatype, //弹出框编辑时表单自带的内容
-    modelType:"add" | "edit",    //弹出框是添加还是编辑
+    model:{
+        isModalVisible:Boolean, //弹出框是否显示
+        initFormData:movieDatatype  //弹出框编辑时表单初始数据
+        modelType:"add" | "edit"//弹出框是添加还是编辑
+    }
     addRelationModelVisible:Boolean,
     addRelationMovieId:number //弹出添加关联框时被关联的电影的id
 }
@@ -36,9 +38,11 @@ const initialState:movieState = {
     status:"init",
     error:null,
     selectedMoviesRowKeys:[],
-    isModalVisible:false,
-    moviesRecord:{} as movieDatatype,
-    modelType:"add",
+    model:{
+        isModalVisible:false,
+        initFormData: {} as movieDatatype,
+        modelType:"add"
+    },
     addRelationModelVisible:false,
     addRelationMovieId:0
 }
@@ -95,9 +99,10 @@ export const updateMovie = createAsyncThunk('movies/updateMovie', async (values:
     return response.data
 })
 
-export const createMovieRelation = createAsyncThunk('movies/addMovieRelation', async (values:any) => {
+export const createMovieRelation = createAsyncThunk('movies/createMovieRelation', async (values:any) => {
+    console.log(values)
     const { movie_id,celebrity_id,position } = values
-    const response = await axios.post("/api/addMovieRelation",{
+    const response = await axios.post("/api/createMovieRelation",{
         movie_id,
         celebrity_id,
         position
@@ -114,17 +119,14 @@ const moviesSlice = createSlice({
         setMoviesTableSelectedRowKeys:(state,action) => {
             state.selectedMoviesRowKeys = action.payload
         },
-        setIsModalVisible:(state,action) => {
-            state.isModalVisible = action.payload
-        },
+
         setMoviesStatus:(state,action) => {
             state.status = action.payload
         },
-        setMoviesRecord:(state,action) => {
-            state.moviesRecord = action.payload
-        },
-        setModelType:(state,action) => {
-            state.modelType = action.payload
+        setMovieModel:(state,action) => {
+            state.model.isModalVisible = action.payload.isModalVisible
+            state.model.initFormData = action.payload.initFormData
+            state.model.modelType = action.payload.modelType
         },
         setAddRelationModelVisible:(state,action) => {
             state.addRelationModelVisible = action.payload
@@ -180,17 +182,14 @@ const moviesSlice = createSlice({
         },
         [createMovieRelation.rejected.type]: (state, action) => {
             message.error('添加失败');
-        },
-
+        }
     }
 })
 
 export const {
     setMoviesTableSelectedRowKeys,
-    setIsModalVisible,
+    setMovieModel,
     setMoviesStatus,
-    setMoviesRecord,
-    setModelType,
     setAddRelationModelVisible,
     setAddRelationMovieId
 } = moviesSlice.actions

@@ -9,7 +9,7 @@ import { Comments } from "./pages/comments/comments";
 import { Users } from "./pages/users/Users";
 import Login from "./pages/login/Login";
 import { MovieRelationList } from "./pages/movieRelationList/MovieRelationList";
-import {MovieStatistics} from "./pages/movieStatistics/movieStatistics";
+import { MovieStatistics } from "./pages/movieStatistics/movieStatistics";
 
 const App: FC = () => (
     // <BrowserRouter>

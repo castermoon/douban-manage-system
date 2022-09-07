@@ -4,10 +4,7 @@ import {
   fetchMoviesData,
   movieDatatype,
   setMoviesTableSelectedRowKeys,
-  setIsModalVisible,
-  setMoviesRecord,
-  setModelType,
-  setAddRelationModelVisible, setAddRelationMovieId
+  setAddRelationModelVisible, setAddRelationMovieId, setMovieModel
 } from "../../slice";
 import {useAppDispatch,useAppSelector} from "../../../../store/hook";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -41,9 +38,11 @@ const ATable: React.FC = () => {
   };
 
   const handleEditRecord = (moviesRecord:movieDatatype) => {
-    dispatch(setIsModalVisible(true))
-    dispatch(setModelType("edit"))
-    dispatch(setMoviesRecord(moviesRecord))
+    dispatch(setMovieModel({
+      isModalVisible:true,
+      initFormData:moviesRecord,
+      modelType:"edit"
+    }))
   }
 
   const handleAddRelation = (movieId:number) => {
@@ -187,7 +186,7 @@ const ATable: React.FC = () => {
       {/*@ts-ignore*/}
       <Table columns={columns} rowSelection={rowSelection}
         dataSource={tableData}
-        scroll={{ x: 2000   }}
+        scroll={{ x: 2000  }}
         bordered
         style={{marginTop:20,fontSize:12}}
         pagination={{

@@ -33,8 +33,6 @@ export const Movie: React.FC = (props) => {
   return (
     <BaseBody>
       <Search placeholder="按照名字搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />
-      {/*<Search placeholder="按照类型搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />*/}
-      {/*<Search placeholder="按照作者搜索" onSearch={onSearch} style={{ width: 200,marginRight:30 }} />*/}
       <Button type="primary" onClick={() => handleMoviesDelete(selectedMoviesRowKeys)} style={{ float:"right" }}>删除选中电影</Button>
       <AModel/>
       <AddRelationModel/>

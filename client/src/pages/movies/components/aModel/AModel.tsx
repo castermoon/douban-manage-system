@@ -1,34 +1,38 @@
 import {Button, Form, Modal,Input } from "antd";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../../../store/hook";
-import {createMovie, setIsModalVisible, setModelType, updateMovie} from "../../slice";
+import {createMovie, setMovieModel , updateMovie} from "../../slice";
 import styles from "./aModel.module.css"
 
 
 
 const AModel: React.FC = () => {
-  const isModalVisible = useAppSelector(state => state.movies.isModalVisible)
-  const modelType = useAppSelector(state => state.movies.modelType)
   const dispatch = useAppDispatch()
-  const moviesRecord = useAppSelector(state => state.movies.moviesRecord)
+  const movieModel = useAppSelector(state => state.movies.model)
   const [form] = Form.useForm();
   const handleCancel = () => {
-    dispatch(setIsModalVisible(false))
+    dispatch(setMovieModel({
+      isModalVisible:false
+    }))
   };
 
   const handleCreateMovie =  () => {
-    dispatch(setIsModalVisible(true))
-    dispatch(setModelType("add"))
+    dispatch(setMovieModel({
+      modelType:"add",
+      isModalVisible:true,
+    }))
   }
 
 
   const onFinish =  (values: any) => {
-    if(modelType === "add"){
+    if(movieModel.modelType === "add"){
         dispatch(createMovie(values))
     }else {
-        values.id = moviesRecord.id
+        values.id = movieModel.initFormData.id
         dispatch(updateMovie(values))
-        dispatch(setIsModalVisible(false))
+        dispatch(setMovieModel({
+          isModalVisible:false,
+        }))
     }
   };
 
@@ -37,10 +41,10 @@ const AModel: React.FC = () => {
   };
 
   useEffect(() => {
-    if(modelType === "add"){
+    if(movieModel.modelType === "add"){
       form.resetFields()
     }else {
-      form.setFieldsValue(moviesRecord)
+      form.setFieldsValue(movieModel.initFormData)
     }
   })
 
@@ -49,7 +53,7 @@ const AModel: React.FC = () => {
     <>
       <Button type="primary" onClick={handleCreateMovie} style={{ float:"right",marginRight:20 }}>新增电影</Button>
       {/*@ts-ignore*/}
-      <Modal title="新增电影" open={isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
+      <Modal title="新增电影" open={movieModel.isModalVisible} footer={null} width={1000}  onCancel={handleCancel} forceRender  >
         <Form
           form={form}
           name="basic"

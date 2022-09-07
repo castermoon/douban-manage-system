@@ -13,7 +13,7 @@ const BaseBody: React.FC<PropsType> = ({children}) => {
       <CommonMenu/>
       <div className={styles["right-body"]}>
         <TopHeader/>
-        <div className={styles["content"]}>
+        <div className={styles["content"]} >
           <Card>
             {children}
           </Card>
