@@ -16,6 +16,8 @@ const celebrity = require('./routes/api/celebrity')
 const comments = require('./routes/api/comments')
 const longComments = require('./routes/api/longComments')
 const users = require('./routes/api/users')
+const errorViewRouter = require('./routes/api/page404')
+
 const koaStatic = require('koa-static')
 
 // error handler
@@ -63,6 +65,7 @@ app.use(celebrity.routes(), movies.allowedMethods())
 app.use(comments.routes(), comments.allowedMethods())
 app.use(longComments.routes(), longComments.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(errorViewRouter.routes(),errorViewRouter.allowedMethods())
 
 
 // error-handling
