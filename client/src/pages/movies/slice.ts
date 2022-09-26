@@ -119,7 +119,6 @@ const moviesSlice = createSlice({
         setMoviesTableSelectedRowKeys:(state,action) => {
             state.selectedMoviesRowKeys = action.payload
         },
-
         setMoviesStatus:(state,action) => {
             state.status = action.payload
         },

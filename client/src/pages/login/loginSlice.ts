@@ -56,9 +56,8 @@ const loginSlice = createSlice({
       if(action.payload.errno === 0){
         state.loginStatus = "succ"
         state.userInfo = action.payload.data.data
-        message.info("登录成功")
       }else {
-        message.error(action.payload.message)
+        state.loginStatus = "failed"
       }
     },
     [login.rejected.type]: (

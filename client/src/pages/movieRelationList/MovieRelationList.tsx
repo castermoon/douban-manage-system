@@ -1,13 +1,13 @@
 import React,{  } from "react";
 import BaseBody from "../../common/baseBody/BaseBody";
-import { Input,Button } from "antd";
+import { Button } from "antd";
 import ATable from "./components/tabel/ATable";
 import { useAppSelector,useAppDispatch } from "../../store/hook"
 import { deleteData } from "./slice";
 import AModel from "./components/aModel/AModel";
 
 
-export const MovieRelationList: React.FC = (props) => {
+const MovieRelationList: React.FC = (props) => {
   const selectedRowKeys = useAppSelector(state => state.movieRelation.selectedRowKeys)
   const dispatch = useAppDispatch()
 
@@ -28,3 +28,5 @@ export const MovieRelationList: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default MovieRelationList

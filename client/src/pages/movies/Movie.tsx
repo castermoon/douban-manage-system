@@ -10,7 +10,7 @@ import {AddRelationModel} from "./components/addRelationModel/AddRelationModel";
 
 const { Search } = Input;
 
-export const Movie: React.FC = (props) => {
+const Movie: React.FC = (props) => {
   const selectedMoviesRowKeys = useAppSelector(state => state.movies.selectedMoviesRowKeys)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -40,3 +40,5 @@ export const Movie: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default Movie

@@ -2,16 +2,22 @@ import React from "react";
 import { Form,Input,Button,Card  } from "antd";
 import styles from "./login.module.css"
 import { login,loginInfo } from "./loginSlice"
-import { useAppDispatch } from "../../store/hook";
+import {useAppDispatch} from "../../store/hook";
 import { useNavigate } from "react-router-dom";
+import {message} from "_antd@4.23.0@antd";
 
 const Login: React.FC = (props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onFinish = (loginInfo: loginInfo) => {
     dispatch(login(loginInfo))
-      .then(() => {
-        navigate(`/`)
+      .then((res) => {
+        if(res.payload.errno !== 0){
+          message.error(res.payload.message)
+        }else {
+          message.info("登录成功")
+          navigate(`/`)
+        }
       });
   };
 
@@ -39,7 +45,6 @@ const Login: React.FC = (props) => {
             >
               <Input />
             </Form.Item>
-
             <Form.Item
               label="密码"
               name="password"

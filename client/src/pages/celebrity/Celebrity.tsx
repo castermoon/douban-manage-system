@@ -9,7 +9,7 @@ import {deleteCelebrityData, setCelebrityStatus} from "./celebritySlice";
 const { Search } = Input;
 
 
-export const Celebrity: React.FC = () => {
+const Celebrity: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -39,3 +39,5 @@ export const Celebrity: React.FC = () => {
     </BaseBody>
   );
 };
+
+export default Celebrity

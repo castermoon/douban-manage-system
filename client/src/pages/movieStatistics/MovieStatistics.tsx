@@ -64,7 +64,7 @@ const ChartConfig = {
   },
 };
 
-export const MovieStatistics: React.FC = (props) => {
+const MovieStatistics: React.FC = (props) => {
   const [ searchParams ] = useSearchParams()
   const movie_id = searchParams.get("movie_id")
   const [scoreDistribution,setScoreDistribution] = useState({} as scoreDistributionType)
@@ -100,3 +100,5 @@ export const MovieStatistics: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default MovieStatistics

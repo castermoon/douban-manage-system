@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
-export const Comments: React.FC = (props) => {
+const Comments: React.FC = (props) => {
   const selectedRowKeys = useAppSelector(state => state.comments.selectedRowKeys)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -36,3 +36,5 @@ export const Comments: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default Comments

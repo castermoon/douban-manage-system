@@ -55,7 +55,7 @@ const ChartConfig = {
 };
 
 
-export const Home: React.FC = (props) => {
+const Home: React.FC = (props) => {
   const userInfo = useAppSelector(state => state.login.userInfo)
   return (
     <BaseBody>
@@ -114,3 +114,5 @@ export const Home: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default Home

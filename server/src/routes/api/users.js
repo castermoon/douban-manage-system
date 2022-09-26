@@ -4,22 +4,22 @@ const { loginCheck } = require("../../middlewares/loginChecks")
 
 router.prefix('/api')
 
-router.get('/getUsers',loginCheck,async (ctx,next) => {
+router.get('/getUsers',async (ctx,next) => {
 	const { username } = ctx.request.query
 	ctx.body = await getUsers({ username })
 })
 
-router.post('/deleteUsers',loginCheck,async (ctx,next) => {
+router.post('/deleteUsers',async (ctx,next) => {
 	const { deleteIdsArr } = ctx.request.body
 	ctx.body = await deleteUsers({deleteIdsArr})
 })
 
-router.post('/createUser',loginCheck,async (ctx,next) => {
+router.post('/createUser',async (ctx,next) => {
 	const { username, password,nickname } = ctx.request.body
 	ctx.body = await createUser({username, password,nickname})
 })
 
-router.post('/updateUser',loginCheck,async (ctx,next) => {
+router.post('/updateUser',async (ctx,next) => {
 	const { id,username, password,nickname } = ctx.request.body
 	ctx.body = await updateUser({id,username, password,nickname})
 })

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 
-export const LongComments: React.FC = (props) => {
+const LongComments: React.FC = (props) => {
   const selectedLongCommentsRowKeys = useAppSelector(state => state.longComments.selectedLongCommentsRowKeys)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -36,3 +36,5 @@ export const LongComments: React.FC = (props) => {
     </BaseBody>
   );
 };
+
+export default LongComments
